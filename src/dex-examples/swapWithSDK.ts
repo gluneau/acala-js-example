@@ -19,7 +19,8 @@ const swapWithSDK = async () => {
   // set slippage 1%
   const slippage = new FixedPointNumber(0.01);
 
-  const referrerAddress = '1';
+  // Use Council created ID here
+  const referrerAddressId = '1';
   
   const swapPromise = new SwapPromise(api);
 
@@ -43,7 +44,7 @@ KUSD BEFOER: ${beforeKUSDBalance.freeBalance.toString()}
       path.map((item) => item.toChainData()),
       supplyAmount.toChainData(),
       parameters.output.balance.mul(slippage).toChainData(),
-      referrerAddress
+      referrerAddressId
     )
     .signAndSend(signer, async (result) => {
       if (result.isInBlock) {
