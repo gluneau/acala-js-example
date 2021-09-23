@@ -19,13 +19,7 @@ const swapWithSDK = async () => {
   // set slippage 1%
   const slippage = new FixedPointNumber(0.01);
 
-  // min: 0; max: 0.03; default: 0;
-  const apiFee = new FixedPointNumber(0.01);
-  const apiAddress = '5HnEvdDPSjsM3iiQT4AL4sBnYogHdWLeNCUDhc2mspSPi2xU';
-  
-  // min: 0; max: 0.03; default: 0;
-  const referrerFee = new FixedPointNumber(0.01);
-  const referrerAddress = '5DqipgPwUTGJgEBfSpmiC7tnC1SCeTZ5on3jJNoq8mhoHhJr';
+  const referrerAddress = '1';
   
   const swapPromise = new SwapPromise(api);
 
@@ -48,7 +42,8 @@ KUSD BEFOER: ${beforeKUSDBalance.freeBalance.toString()}
     .swapWithExactSupply(
       path.map((item) => item.toChainData()),
       supplyAmount.toChainData(),
-      parameters.output.balance.mul(slippage, apiFee, apiAddress, referrerFee, referrerAddress).toChainData()
+      parameters.output.balance.mul(slippage).toChainData(),
+      referrerAddress
     )
     .signAndSend(signer, async (result) => {
       if (result.isInBlock) {
