@@ -19,6 +19,9 @@ const swapWithSDK = async () => {
   // set slippage 1%
   const slippage = new FixedPointNumber(0.01);
 
+  // Use Council created ID here
+  const referrerAddressId = '1';
+  
   const swapPromise = new SwapPromise(api);
 
   const parameters = await swapPromise.swap(path, supplyAmount, "EXACT_INPUT");
@@ -40,7 +43,8 @@ KUSD BEFOER: ${beforeKUSDBalance.freeBalance.toString()}
     .swapWithExactSupply(
       path.map((item) => item.toChainData()),
       supplyAmount.toChainData(),
-      parameters.output.balance.mul(slippage).toChainData()
+      parameters.output.balance.mul(slippage).toChainData(),
+      referrerAddressId
     )
     .signAndSend(signer, async (result) => {
       if (result.isInBlock) {
